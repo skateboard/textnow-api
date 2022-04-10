@@ -140,6 +140,6 @@ func (t *TextNowAPI) WaitForResponse(phoneNumber string, timeout bool) *Message 
 			return nil
 		}
 
-		return t.WaitForResponse(phoneNumber, true)
+		return t.WaitForResponse(phoneNumber, timeout)
 	}
 }
