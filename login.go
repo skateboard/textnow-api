@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 // login sometimes gets PX'd so maybe make a manual mode and auto login.
@@ -60,6 +61,11 @@ func (t *TextNowAPI) login() bool {
 
 		fmt.Println("Error: Could not login")
 		return false
+	} else if response.StatusCode == 403 {
+		fmt.Println("GETTING PX'D RETRYING IN 5 MINUTES")
+		
+		time.Sleep(time.Minute * 5)
+		return t.login()
 	}
 
 	var loginResponse LoginResponse
