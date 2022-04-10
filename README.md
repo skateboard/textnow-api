@@ -3,7 +3,7 @@ a GO lang implementation of textnow's API.
 
 # Usage
 ```go
-api := New("email", "password")
+api := New("email", "password", "proxy")
 
 messages := api.GetMessages()
 for _, message := range *messages {
