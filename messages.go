@@ -127,6 +127,8 @@ func (t *TextNowAPI) WaitForResponse(phoneNumber string, timeout bool) *Message 
 					break
 				}
 			}
+
+			time.Sleep(time.Second * 5)
 		}
 	}()
 
