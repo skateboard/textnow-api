@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// login sometimes gets PX'd so maybe make a manual mode and auto login.
 func (t *TextNowAPI) login() bool {
 	if !t.getLoginParameters() {
 		fmt.Println("Error: Could not get login parameters")
