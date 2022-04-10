@@ -55,17 +55,17 @@ func (t *TextNowAPI) login() bool {
 		return false
 	}
 
-	if response.StatusCode != 200 {
+	if response.StatusCode == 403 {
+		fmt.Println("GETTING PX'D RETRYING IN 5 MINUTES")
+
+		time.Sleep(time.Minute * 5)
+		return t.login()
+	} else if response.StatusCode != 200 {
 		fmt.Println(response.StatusCode)
 		fmt.Println(string(body))
 
 		fmt.Println("Error: Could not login")
 		return false
-	} else if response.StatusCode == 403 {
-		fmt.Println("GETTING PX'D RETRYING IN 5 MINUTES")
-		
-		time.Sleep(time.Minute * 5)
-		return t.login()
 	}
 
 	var loginResponse LoginResponse
