@@ -6,7 +6,7 @@ import (
 )
 
 func TestAPI(t *testing.T) {
-	api := New(os.Getenv("EMAIL"), os.Getenv("PASSWORD"))
+	api := New(os.Getenv("EMAIL"), os.Getenv("PASSWORD"), "")
 
 	messages := api.GetMessages()
 	for _, message := range *messages {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/cookiejar"
-	"time"
+	"net/url"
 )
 
 type TextNowAPI struct {
@@ -20,12 +20,24 @@ type TextNowAPI struct {
 	sid string
 }
 
-func New(email, password string) *TextNowAPI {
-	jar, _ := cookiejar.New(nil);
-	client := http.Client{
-		Jar:           jar,
-		Timeout:       10 * time.Second,
+func New(email, password, proxy string) *TextNowAPI {
+	jar, _ := cookiejar.New(nil)
+
+	var client http.Client
+	if proxy != "" {
+		proxyUrl, _ := url.Parse(proxy)
+		client = http.Client{
+			Transport: &http.Transport{
+				Proxy: http.ProxyURL(proxyUrl),
+			},
+			Jar: jar,
+		}
+	} else {
+		client = http.Client{
+			Jar: jar,
+		}
 	}
+
 	api := &TextNowAPI{
 		Email: email,
 		Password: password,
